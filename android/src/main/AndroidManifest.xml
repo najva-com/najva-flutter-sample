@@ -1,0 +1,11 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.najva.najvaflutter">
+
+    <application>
+        <service android:name=".NajvaPluginService">
+            <intent-filter>
+                <action android:name="com.najva.najvasdk.Service.NajvaMessagingService"/>
+            </intent-filter>
+        </service>
+    </application>
+</manifest>
