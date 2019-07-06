@@ -1,4 +1,4 @@
-package com.najva.najvaflutter_example;
+package com.najva.najvaflutter;
 
 import com.google.firebase.messaging.RemoteMessage;
 import com.najva.najvasdk.Service.NajvaMessagingService;
@@ -11,6 +11,11 @@ public class NajvaPluginService extends NajvaMessagingService {
     public void onMessageReceived(RemoteMessage remoteMessage) {
         Map<String, String> data = remoteMessage.getData();
         String str = data.get("json-data");
-//        NajvaflutterPlugin.getInstance().onJSONDataReceived(str);
+        NajvaflutterPlugin plugin = NajvaflutterPlugin.getInstance();
+        if (plugin != null && plugin.shouldHandleJson()) {
+            plugin.onJSONDataReceived(str);
+        } else {
+            super.onMessageReceived(remoteMessage);
+        }
     }
 }

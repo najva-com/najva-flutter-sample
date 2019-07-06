@@ -5,6 +5,9 @@ buildscript {
     repositories {
         google()
         jcenter()
+        flatDir {
+            dirs 'libs'
+        }
     }
 
     dependencies {
@@ -16,10 +19,17 @@ rootProject.allprojects {
     repositories {
         google()
         jcenter()
+
     }
 }
 
 apply plugin: 'com.android.library'
+
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = file('/home/shayan/Najva/flutter/najvaflutter/android/key.properties')
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
 
 android {
     compileSdkVersion 28
@@ -31,7 +41,35 @@ android {
     lintOptions {
         disable 'InvalidPackage'
     }
+
+    signingConfigs {
+       release {
+           keyAlias keystoreProperties['keyAlias']
+           keyPassword keystoreProperties['keyPassword']
+           storeFile file(keystoreProperties['storeFile'])
+           storePassword keystoreProperties['storePassword']
+       }
+   }
+
+    buildTypes {
+	release {
+	    signingConfig signingConfigs.release
+	    minifyEnabled true
+        useProguard true
+
+        proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+	}
+        
+    }
+    
 }
 dependencies {
-    implementation 'com.najva.sdk:najva-android-sdk:1.0.6'
+    implementation fileTree(dir:'libs',include:['*.aar'])
+    implementation 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2'
+    implementation 'com.android.volley:volley:1.1.1'
+
+    implementation 'com.google.firebase:firebase-core:9.0.0' // TODO - For what reason ???
+    implementation 'com.google.firebase:firebase-messaging:17.3.4'
+    implementation 'com.google.android.gms:play-services-location:16.0.0'
+    implementation 'io.sentry:sentry-android:1.7.5'
 }

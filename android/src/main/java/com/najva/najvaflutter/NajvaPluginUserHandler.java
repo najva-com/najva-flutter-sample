@@ -1,4 +1,4 @@
-package com.najva.najvaflutter_example;
+package com.najva.najvaflutter;
 
 import com.najva.najvasdk.Class.NajvaUserHandler;
 

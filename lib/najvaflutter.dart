@@ -11,7 +11,8 @@ class NajvaFlutter {
 
   ///final variables used for method names
   static const String INIT = "init";
-  static const String INIT_USER_HANDLER = "init_user_handler";
+  static const String HANDLE_JSON_NOTIFICATION = "handle_json_notification";
+  static const String HANDLE_USERS_TOKEN = "handle_users_token";
 
   ///final variables for dart method names
   static const String NEW_JSON_DATA = "onNewJSONData";
@@ -52,7 +53,12 @@ class NajvaFlutter {
 
   // ignore: missing_return
   Future<void> initUserHandling() {
-    _channel.invokeMethod(INIT_USER_HANDLER);
+    _channel.invokeMethod(HANDLE_USERS_TOKEN);
+  }
+
+  // ignore: missing_return
+  Future<void> initJSONNotification(){
+    _channel.invokeMethod(HANDLE_JSON_NOTIFICATION);
   }
 
   void deliverJSONData(arguments) {

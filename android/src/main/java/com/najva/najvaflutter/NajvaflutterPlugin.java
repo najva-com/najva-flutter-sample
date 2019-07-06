@@ -20,7 +20,7 @@ import io.flutter.plugin.common.PluginRegistry;
  * created by shayan
  * flutter plugin for implement all features of najva android sdk in flutter
  **/
-public class NajvaflutterPlugin implements MethodCallHandler {
+public class NajvaflutterPlugin implements MethodCallHandler, NajvaPluginUserHandler.INajvaPluginUserHandler {
 
     /**
      * final variables used for keys in arguments map
@@ -34,6 +34,8 @@ public class NajvaflutterPlugin implements MethodCallHandler {
      * final variables used for method names
      */
     public static final String INIT = "init";
+    public static final String HANDLE_JSON_NOTIFICATION = "handle_json_notification";
+    public static final String HANDLE_USERS_TOKEN = "handle_users_token";
 
     /**
      * final variables for dart method names
@@ -45,6 +47,8 @@ public class NajvaflutterPlugin implements MethodCallHandler {
      * static instance for singleton implementation
      */
     private static NajvaflutterPlugin instance;
+
+
 
     /**
      * get instance method for singleton object
@@ -72,13 +76,17 @@ public class NajvaflutterPlugin implements MethodCallHandler {
      */
     public static void registerWith(PluginRegistry.Registrar registrar) {
         final MethodChannel channel = new MethodChannel(registrar.messenger(), "najvaflutterplugin");
-        channel.setMethodCallHandler(getInstance(channel, registrar.context()));
+        channel.setMethodCallHandler(getInstance(channel, registrar.activity()));
     }
 
     /* class implementation */
 
     private MethodChannel channel;
     private Context context;
+
+    private boolean shouldHandleJson = false;
+    private boolean shouldHandleUsers = false;
+
 
 
     private NajvaflutterPlugin(MethodChannel channel, Context context) {
@@ -91,14 +99,27 @@ public class NajvaflutterPlugin implements MethodCallHandler {
     public void onMethodCall(MethodCall call, Result result) {
         if (call.method.equals(INIT)) {
             result.success(init((Map<String, String>) call.arguments));
-        } else {
+        } else if (call.method.equals(HANDLE_JSON_NOTIFICATION)) {
+            handleJSONNotification(result);
+            result.success(null);
+        } else if (call.method.equals(HANDLE_USERS_TOKEN)){
+            handleUsersToken();
+            result.success(null);
+        }else {
             result.notImplemented();
         }
     }
 
+    private void handleUsersToken() {
+        shouldHandleUsers = true;
+        initUserHandler(new NajvaPluginUserHandler(this));
+    }
+
+    private void handleJSONNotification(Result result) {
+        shouldHandleJson = true;
+    }
+
     public void initUserHandler(NajvaUserHandler handler) {
-        Log.d("Najva", "Initializing najva");
-        Toast.makeText(context, "test", Toast.LENGTH_LONG);
         Najva.setUserHandler(handler);
     }
 
@@ -128,10 +149,11 @@ public class NajvaflutterPlugin implements MethodCallHandler {
      *
      * @param data is JSONObject has received from najva service
      */
-    void onJSONDataReceived(String data) {
+    public void onJSONDataReceived(String data) {
         channel.invokeMethod(NEW_JSON_DATA, data);
     }
 
+    @Override
     public void najvaUserSubscribed(String token) {
         channel.invokeMethod(NEW_USER_SUBSCRIBED, token);
     }
@@ -143,5 +165,13 @@ public class NajvaflutterPlugin implements MethodCallHandler {
     public void release() {
         context = null;
         channel = null;
+    }
+
+    public boolean shouldHandleJson() {
+        return shouldHandleJson;
+    }
+
+    public boolean shouldHandleUsers() {
+        return shouldHandleUsers;
     }
 }
