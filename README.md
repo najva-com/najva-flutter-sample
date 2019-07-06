@@ -26,6 +26,7 @@ By calling `init` method and passing the right argument your NajvaSDK will be in
 ```
     init(CHAMPAIGN_ID,WEBSITE_ID,API_KEY,LOCATION_ENABLED);
 ```
+
 `CHAMPAIGN_ID` is your chamaignId that you can create or find in your [panel](https://app.najva.com/login).
 
 `WEBSITE_ID` is your websiteId that can be found in your [panel](https://app.najva.com/login).
@@ -95,7 +96,7 @@ Then add the following code to your manifest file to declare a new service
 
 * Note that all changes in `AndroidManifest.xml` file must be under `<application>` tag.
 
-Then create a class called `MyAppService`. your class must look like this:
+Then create a class called `MyFcmService`. your class must look like this:
 
 ```
 public class MyFcmService extends FirebaseMessagingService {
@@ -108,16 +109,16 @@ You can `Override` them and in order to use Najva call `NajvaPushNotificationHan
 
 ```
 @Override
-    public void onMessageReceived(RemoteMessage remoteMessage) {
-        super.onMessageReceived(remoteMessage);
-        NajvaPushNotificationHandler.handleMessage(getApplicationContext(), remoteMessage);
-    }
+public void onMessageReceived(RemoteMessage remoteMessage) {
+    super.onMessageReceived(remoteMessage);
+    NajvaPushNotificationHandler.handleMessage(getApplicationContext(), remoteMessage);
+}
 
-    @Override
-    public void onNewToken(String s) {
-        super.onNewToken(s);
-        NajvaPushNotificationHandler.handleNewToken(getApplicationContext(), s);
-    }
+@Override
+public void onNewToken(String s) {
+    super.onNewToken(s);
+    NajvaPushNotificationHandler.handleNewToken(getApplicationContext(), s);
+}
 ```
 
 Or if you use another push notification service you can simply call their methods there.
