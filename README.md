@@ -27,8 +27,11 @@ By calling `init` method and passing the right argument your NajvaSDK will be in
     init(CHAMPAIGN_ID,WEBSITE_ID,API_KEY,LOCATION_ENABLED);
 ```
 `CHAMPAIGN_ID` is your chamaignId that you can create or find in your [panel](https://app.najva.com/login).
+
 `WEBSITE_ID` is your websiteId that can be found in your [panel](https://app.najva.com/login).
+
 `API_KEY` is your api key that can be found in your [panel](https://app.najva.com/login).
+
 `LOCATION_ENABLED` is a boolean. if set true the `NajvaSDK` will improve your push notifications by users location and also Location permission will be asked from user if android version is above 6.0.
 
 By calling `initUserHandling` the plugin will get user token and passed it to a method called `onUserSubscribed`. 
