@@ -27,7 +27,7 @@ By calling `init` method and passing the right argument your NajvaSDK will be in
     init(CHAMPAIGN_ID,WEBSITE_ID,API_KEY,LOCATION_ENABLED);
 ```
 
-`CHAMPAIGN_ID` is your chamaignId that you can create or find in your [panel](https://app.najva.com/login).
+`CHAMPAIGN_ID` is your champaignId that you can create or find in your [panel](https://app.najva.com/login).
 
 `WEBSITE_ID` is your websiteId that can be found in your [panel](https://app.najva.com/login).
 
