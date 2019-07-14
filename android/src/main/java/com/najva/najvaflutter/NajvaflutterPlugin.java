@@ -5,6 +5,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.najva.najvasdk.Class.Najva;
+import com.najva.najvasdk.Class.NajvaJsonDataListener;
 import com.najva.najvasdk.Class.NajvaUserHandler;
 
 import java.util.Map;
@@ -84,10 +85,6 @@ public class NajvaflutterPlugin implements MethodCallHandler, NajvaPluginUserHan
     private MethodChannel channel;
     private Context context;
 
-    private boolean shouldHandleJson = false;
-    private boolean shouldHandleUsers = false;
-
-
 
     private NajvaflutterPlugin(MethodChannel channel, Context context) {
         this.channel = channel;
@@ -97,26 +94,35 @@ public class NajvaflutterPlugin implements MethodCallHandler, NajvaPluginUserHan
 
     @Override
     public void onMethodCall(MethodCall call, Result result) {
-        if (call.method.equals(INIT)) {
-            result.success(init((Map<String, String>) call.arguments));
-        } else if (call.method.equals(HANDLE_JSON_NOTIFICATION)) {
-            handleJSONNotification(result);
-            result.success(null);
-        } else if (call.method.equals(HANDLE_USERS_TOKEN)){
-            handleUsersToken();
-            result.success(null);
-        }else {
-            result.notImplemented();
+        switch (call.method) {
+            case INIT:
+                result.success(init((Map<String, String>) call.arguments));
+                break;
+            case HANDLE_JSON_NOTIFICATION:
+                handleJSONNotification(result);
+                result.success(null);
+                break;
+            case HANDLE_USERS_TOKEN:
+                handleUsersToken();
+                result.success(null);
+                break;
+            default:
+                result.notImplemented();
+                break;
         }
     }
 
     private void handleUsersToken() {
-        shouldHandleUsers = true;
         initUserHandler(new NajvaPluginUserHandler(this));
     }
 
     private void handleJSONNotification(Result result) {
-        shouldHandleJson = true;
+        Najva.setJsonDataListener(new NajvaJsonDataListener() {
+            @Override
+            public void onReceiveJson(String s) {
+                onJSONDataReceived(s);
+            }
+        });
     }
 
     public void initUserHandler(NajvaUserHandler handler) {
@@ -165,13 +171,5 @@ public class NajvaflutterPlugin implements MethodCallHandler, NajvaPluginUserHan
     public void release() {
         context = null;
         channel = null;
-    }
-
-    public boolean shouldHandleJson() {
-        return shouldHandleJson;
-    }
-
-    public boolean shouldHandleUsers() {
-        return shouldHandleUsers;
     }
 }

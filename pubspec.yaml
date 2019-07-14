@@ -1,8 +1,8 @@
 name: najvaflutter
-description: A new Flutter plugin.
-version: 0.0.1
-author:
-homepage:
+description: Simple flutter plugin for using najvaSDK in flutter projects.
+version: 1.0.4
+author: Najva <info@najva.com>
+homepage: http://najva.com
 
 environment:
   sdk: ">=2.1.0 <3.0.0"

@@ -3,11 +3,5 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
-    <application>
-        <service android:name=".NajvaPluginService">
-            <intent-filter>
-                <action android:name="com.najva.najvasdk.Service.NajvaMessagingService" />
-            </intent-filter>
-        </service>
-    </application>
+    <application></application>
 </manifest>

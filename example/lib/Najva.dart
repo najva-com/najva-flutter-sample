@@ -1,9 +1,9 @@
 import 'package:najvaflutter/najvaflutter.dart';
 
 class Najva extends NajvaFlutter {
-  int campaignId = 1247428; // your campaignId here
-  int websiteId = 5753; // your websiteId here
-  String apiKey = "ad9f8d79-1e87-4b61-aa55-7f0be6f2fc6f"; //your api key here
+  int campaignId = 1247604; // your campaignId here
+  int websiteId = 5929; // your websiteId here
+  String apiKey = "ada0ff89-408e-4ffe-bf0b-2f1fb3ff77a1"; //your api key here
   bool locationEnabled =
       true; //set true if you want get location-based improvements
 
