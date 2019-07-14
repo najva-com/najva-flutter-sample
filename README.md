@@ -7,8 +7,18 @@ Flutter plugin for implementing NajvaSDK in your flutter application without int
 Here is simple way to implement `najva-flutter-plugin` to your flutter application
 
 ### Add plugin
-Add `najva-flutter-plugin` to your project.
+First you need to add `najvaFlutter` to your project. in order tt add plugin to your project open `pubspecs.yaml` file and add this line as dependency
+```
+dependencies:
+  najvaflutter: ^1.0.4
+```
 
+open [najvaFlutter](https://pub.dev/packages/najvaflutter#-installing-tab-) page in [pub.dev](https://pub.dev) to get latest version
+
+then run commend bellow to update your flutter project packages
+```
+$ flutter pub get
+```
 ### Changes in your code
 
 Create a class named `Najva` or any name you think is good and extent from `NajvaFlutter`.
