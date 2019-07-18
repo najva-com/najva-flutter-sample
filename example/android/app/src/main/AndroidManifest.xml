@@ -31,11 +31,5 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-
-        <service android:name="com.najva.najvaflutter.NajvaPluginService">
-            <intent-filter>
-                <action android:name="com.najva.najvasdk.Service.NajvaMessagingService"/>
-            </intent-filter>
-        </service>
     </application>
 </manifest>
