@@ -18,3 +18,7 @@
 ## 1.0.4
 
 * navjaSDK updated to the latest version
+
+## 1.1.1
+
+* najvaSDK updated to the 1.1.1 version 

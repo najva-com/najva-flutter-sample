@@ -64,5 +64,5 @@ android {
     
 }
 dependencies {
-    implementation 'com.najva.sdk:najva-android-sdk:1.1.1'
+    implementation 'com.najva.sdk:najva-android-sdk:1.1.4'
 }

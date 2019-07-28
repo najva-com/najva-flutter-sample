@@ -37,6 +37,7 @@ public class NajvaflutterPlugin implements MethodCallHandler, NajvaPluginUserHan
     public static final String INIT = "init";
     public static final String HANDLE_JSON_NOTIFICATION = "handle_json_notification";
     public static final String HANDLE_USERS_TOKEN = "handle_users_token";
+    public static final String GET_SUBSCRIBED_TOKEN = "get_subscribed_token";
 
     /**
      * final variables for dart method names
@@ -48,7 +49,6 @@ public class NajvaflutterPlugin implements MethodCallHandler, NajvaPluginUserHan
      * static instance for singleton implementation
      */
     private static NajvaflutterPlugin instance;
-
 
 
     /**
@@ -106,6 +106,9 @@ public class NajvaflutterPlugin implements MethodCallHandler, NajvaPluginUserHan
                 handleUsersToken();
                 result.success(null);
                 break;
+            case GET_SUBSCRIBED_TOKEN:
+                result.success(getSubscribedToken());
+                break;
             default:
                 result.notImplemented();
                 break;
@@ -138,14 +141,18 @@ public class NajvaflutterPlugin implements MethodCallHandler, NajvaPluginUserHan
             throw new IllegalArgumentException("Najva: WEBSITE_ID not found : Initialization failed");
         if (arguments.get(API_KEY) == null)
             throw new IllegalArgumentException("Najva: API_KEY not found : Initialization failed");
-        if (arguments.get(LOCATION) == null)
-            throw new IllegalArgumentException("Najva: LOCATION not found : Initialization failed");
 
-        Najva.initialize(context,
-                Integer.parseInt(arguments.get(CAMPAIGN_ID)),
-                Integer.parseInt(arguments.get(WEBSITE_ID)),
-                arguments.get(API_KEY),
-                Boolean.parseBoolean(arguments.get(LOCATION)));
+        try {
+            Najva.initialize(context,
+                    Integer.parseInt(arguments.get(CAMPAIGN_ID)),
+                    Integer.parseInt(arguments.get(WEBSITE_ID)),
+                    arguments.get(API_KEY));
+        } catch (Exception e) {
+            Najva.initialize(context,
+                    Integer.parseInt(arguments.get(CAMPAIGN_ID)),
+                    Integer.parseInt(arguments.get(WEBSITE_ID)),
+                    arguments.get(API_KEY));
+        }
 
         return true;
     }
@@ -162,6 +169,10 @@ public class NajvaflutterPlugin implements MethodCallHandler, NajvaPluginUserHan
     @Override
     public void najvaUserSubscribed(String token) {
         channel.invokeMethod(NEW_USER_SUBSCRIBED, token);
+    }
+
+    public String getSubscribedToken() {
+        return Najva.getSubscribedToken(context);
     }
 
     /**

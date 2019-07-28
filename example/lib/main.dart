@@ -15,11 +15,16 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   String _platformVersion = 'Unknown';
-
+  Najva najva;
   @override
   void initState() {
     super.initState();
-    new Najva();
+    najva = new Najva();
+  }
+
+  void onButtonClicked(){
+
+    najva.getSubscribedToken().then((token)=> {print("token: ${token}")});
   }
 
   @override
@@ -30,7 +35,10 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Plugin example app'),
         ),
         body: Center(
-          child: Text('Running on: $_platformVersion\n'),
+          child: Column(children: <Widget>[
+            Text("Running on $_platformVersion"),
+            FloatingActionButton(onPressed: onButtonClicked)
+          ],),
         ),
       ),
     );

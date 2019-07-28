@@ -1,5 +1,7 @@
 package com.najva.najvaflutter;
 
+import android.util.Log;
+
 import com.najva.najvasdk.Class.NajvaUserHandler;
 
 /**
@@ -11,12 +13,13 @@ public class NajvaPluginUserHandler extends NajvaUserHandler {
 
     private INajvaPluginUserHandler iNajvaPluginUserHandler;
 
-    public NajvaPluginUserHandler(INajvaPluginUserHandler iNajvaPluginUserHandler){
+    public NajvaPluginUserHandler(INajvaPluginUserHandler iNajvaPluginUserHandler) {
         this.iNajvaPluginUserHandler = iNajvaPluginUserHandler;
     }
 
     @Override
     public void najvaUserSubscribed(String token) {
+        Log.d("NajvaPluginUserHandler", token);
         iNajvaPluginUserHandler.najvaUserSubscribed(token);
     }
 

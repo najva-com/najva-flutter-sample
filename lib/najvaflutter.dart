@@ -13,6 +13,7 @@ class NajvaFlutter {
   static const String INIT = "init";
   static const String HANDLE_JSON_NOTIFICATION = "handle_json_notification";
   static const String HANDLE_USERS_TOKEN = "handle_users_token";
+  static const String GET_SUBSCRIBED_TOKEN = "get_subscribed_token";
 
   ///final variables for dart method names
   static const String NEW_JSON_DATA = "onNewJSONData";
@@ -22,10 +23,9 @@ class NajvaFlutter {
 
   bool isNajvaInitialized = false;
 
-
   Future<dynamic> handler(MethodCall call) {
     String name = call.method;
-    switch(name){
+    switch (name) {
       case NEW_JSON_DATA:
         deliverJSONData(call.arguments);
         break;
@@ -35,13 +35,11 @@ class NajvaFlutter {
     }
   }
 
-  Future<void> init(int campaignId, int websiteId, String apiKey,
-      bool locationEnabled) async {
+  Future<void> init(int campaignId, int websiteId, String apiKey) async {
     Map<String, String> map = new Map();
     map[CAMPAIGN_ID] = "$campaignId";
     map[WEBSITE_ID] = "$websiteId";
     map[API_KEY] = apiKey;
-    map[LOCATION] = "$locationEnabled";
 
     try {
       isNajvaInitialized = await _channel.invokeMethod(INIT, map);
@@ -57,21 +55,25 @@ class NajvaFlutter {
   }
 
   // ignore: missing_return
-  Future<void> initJSONNotification(){
+  Future<void> initJSONNotification() {
     _channel.invokeMethod(HANDLE_JSON_NOTIFICATION);
   }
 
   void deliverJSONData(arguments) {
-    onNewJSONDataReceived(arguments);
+    _onNewJSONDataReceived(arguments);
   }
 
   void deliverUserSubscription(arguments) {
-    onUserSubscribed(arguments);
+    print("najva token: $arguments");
+    _onUserSubscribed(arguments);
   }
 
-  void onNewJSONDataReceived(String jsonData) {}
+  void _onNewJSONDataReceived(String jsonData) {}
 
-  void onUserSubscribed(String token) {}
+  void _onUserSubscribed(String token) {}
 
+  Future<String> getSubscribedToken() async {
+    String token = await _channel.invokeMethod(GET_SUBSCRIBED_TOKEN);
+    return token;
+  }
 }
-
