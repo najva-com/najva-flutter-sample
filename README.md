@@ -1,75 +1,22 @@
-# najvasdk
+# najva Flutter Application
+This is a Flutter application that NajvaSdk implemented in it.
 
-a simple sample for implementing `najva-android-sdk` in flutter
+### Test Najva Service in Flutter
+If you want test Najva Push Notification Service in flutter application you should:
 
-## Getting Started
-here is the guidline to implement `najva-androd-sdk` in your flutter project
+1.  Clone this project and rename package name of it 
 
-### Adding library
-in `android/app`folder in your project root open `build.gradle` file and add following code in `dependencies` section.
+2.  Register this app after login in [najva panel](https://app.najva.com/accounts/login/?next=/).(to register any app, its package name must be unique!)
 
-```
-impementation 'com.najva.sdk:najva-android-sdk:1.0.6'
-```
-and then enter commands bellow in `android studio`'s terminal to `gradle` refreshes your android project
-```
-$ cd android
-$ ./gradlew build
+
+3.  After register najva panel gives you campaignId,websiteId,apiKey which is specific to your app
+
+4.  Open Najva.dart file add change this linse
 ```
 
-or you can open android folder as a new `android` project and let gradle sync it.
-
-### Changes in Dart code
-in your `main.dart` file add these lines to `MyApp` class body.
-```
-static const platform = const MethodChannel(‘CHANNEL_NAME’);//replce with your channel name
-static isNajvaInitialized = false;
-```
-
-and then add this `Feature` to `MyApp` class body
+int campaignId = 0; // your campaignId here
+int websiteId = 0; // your websiteId here
+String apiKey = ""; //your api key here
 
 ```
-Featur<void> _getNajvaInitialized() async {
-  bool state;
-  Try {
-    final bool result = await platform.invokeMethod(‘init’);
-      state = result;
-    } on PlatformException catch(e) {
-      state = false;
-    }
-  isNajvaInitialized = state;
-}
-```
-then in `build` method before `return` add this line.
-```
-_getNajvaInitialized();
-```
-
-### Changes in android code
-in `app` module in `android` project open `MainActivity.class` file and add this line
-```
-static final String CHANNEL = “CHANNEL_NAME”; //replce with your channel name
-```
-and then add these codes in `onCreate` method
-```
-new MethodChannel(getFlutterView(),CHANNEL).setMethodCallHandler( new MethodChannel.MethodCallHandler() {
-  @Override
-  public void onCallMethod(MethodCall methodCall,MethodCall.Result result){
-    if(methodCall.method.equals(“init”)){
-      init();
-      result.success(true);
-    } else {
-      result.notImplemented();
-    }
-  }
-});
-```
-
-and add this method to the `MainActivity` class
-```
-public void init() {
-	Najva.initialize(context,CAMPAIGN_ID,WEBSITE_ID,API_KEY,LOCATION_ENABLED);
-}
-```
-
-and everything should work fine now :)
+5.  Now you can run application and send notification from your panel to it!
