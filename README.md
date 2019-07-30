@@ -1,38 +1,22 @@
-# Example main.dart
+# najva Flutter Application
+This is a Flutter application that NajvaSdk implemented in it.
 
+### Test Najva Service in Flutter
+If you want test Najva Push Notification Service in flutter application you should:
+
+1.  Clone this project and rename package name of it 
+
+2.  Register this app after login in [najva panel](https://app.najva.com/accounts/login/?next=/).(to register any app, its package name must be unique!)
+
+
+3.  After register najva panel gives you campaignId,websiteId,apiKey which is specific to your app
+
+4.  Open Najva.dart file add change this linse
 ```
 
-void main() => runApp(MyApp());
-
-class MyApp extends StatefulWidget {
-  @override
-  _MyAppState createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
-
-  @override
-  void initState() {
-    super.initState();
-    new NajvaFlutter().init(CHAMPAIGN_ID,WEBSITE_ID,API_KEY,LOCATION_ENABLED); // you must add this line to your project 
-    // and in some cases save it to a variable field.
-    // also its better to create a class and extend from NajvaFlutter and use that instead.
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Plugin example app'),
-        ),
-        body: Center(
-          child: Text('Running on: $_platformVersion\n'),
-        ),
-      ),
-    );
-  }
-}
+int campaignId = 0; // your campaignId here
+int websiteId = 0; // your websiteId here
+String apiKey = ""; //your api key here
 
 ```
+5.  Now you can run application and send notification from your panel to it!
