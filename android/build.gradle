@@ -1,68 +1,30 @@
-group 'com.najva.najvaflutter'
-version '1.0-SNAPSHOT'
-
 buildscript {
     repositories {
         google()
         jcenter()
-        flatDir {
-            dirs 'libs'
-        }
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.2.1'
+        classpath 'com.android.tools.build:gradle:3.4.1'
     }
 }
 
-rootProject.allprojects {
+allprojects {
     repositories {
         google()
         jcenter()
-
     }
 }
 
-apply plugin: 'com.android.library'
+rootProject.buildDir = '../build'
 
-def keystoreProperties = new Properties()
-def keystorePropertiesFile = file('/home/shayan/Najva/flutter/najvaflutter/android/key.properties')
-if (keystorePropertiesFile.exists()) {
-    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+subprojects {
+    project.buildDir = "${rootProject.buildDir}/${project.name}"
+}
+subprojects {
+    project.evaluationDependsOn(':app')
 }
 
-android {
-    compileSdkVersion 28
-
-    defaultConfig {
-        minSdkVersion 16
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-    }
-    lintOptions {
-        disable 'InvalidPackage'
-    }
-
-    signingConfigs {
-       release {
-           keyAlias keystoreProperties['keyAlias']
-           keyPassword keystoreProperties['keyPassword']
-           storeFile file(keystoreProperties['storeFile'])
-           storePassword keystoreProperties['storePassword']
-       }
-   }
-
-    buildTypes {
-	release {
-	    signingConfig signingConfigs.release
-	    minifyEnabled true
-        useProguard true
-
-        proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-	}
-        
-    }
-    
-}
-dependencies {
-    implementation 'com.najva.sdk:najva-android-sdk:1.1.4'
+task clean(type: Delete) {
+    delete rootProject.buildDir
 }
