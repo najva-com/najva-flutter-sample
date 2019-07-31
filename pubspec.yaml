@@ -17,7 +17,7 @@ environment:
   sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
-  najva: ^1.1.5
+  najvaflutter: ^1.1.5
   flutter:
     sdk: flutter
 

@@ -1,9 +1,9 @@
 import 'package:najvaflutter/najvaflutter.dart';
 
 class Najva extends NajvaFlutter {
-  int campaignId = 0; // your campaignId here
-  int websiteId = 0; // your websiteId here
-  String apiKey = ""; //your api key here
+  int campaignId = 1247618; // your campaignId here
+  int websiteId = 5943; // your websiteId here
+  String apiKey = "72e19a69-b226-44d8-9e4b-a9b97d01433f"; //your api key here
 
   /// constructor for Najva
   Najva() {

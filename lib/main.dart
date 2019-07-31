@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'Najva.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
