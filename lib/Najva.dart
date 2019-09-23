@@ -1,33 +1,37 @@
+import 'dart:collection';
+
 import 'package:najvaflutter/najvaflutter.dart';
 
 class Najva extends NajvaFlutter {
-  int campaignId = 1247618; // your campaignId here
-  int websiteId = 5943; // your websiteId here
-  String apiKey = "72e19a69-b226-44d8-9e4b-a9b97d01433f"; //your api key here
+  Najva(){
+    init();
 
-  /// constructor for Najva
-  Najva() {
-    init(campaignId, websiteId, apiKey);
+    getCachedJsonData();
 
-    // you can call initUserHandling() method if you want to get warned about users
-    initUserHandling();
-
-    getSubscribedToken().then((token) => {  print("user token: ${token}") });
-
+    print(getSubscribedToken());
   }
 
-  /// json data will be send to this method
   @override
-  void _onNewJSONDataReceived(String jsonData) {
-    // TODO: handle new message from server
+  void onUserSubscribed(String token) {
+    // TODO: implement onUserSubscribed
+    super.onUserSubscribed(token);
+    print(token);
+  }
+
+  @override
+  void onNewJSONDataReceived(String jsonData) {
+    // TODO: implement onNewJSONDataReceived
+    super.onNewJSONDataReceived(jsonData);
     print(jsonData);
   }
 
   @override
-  void _onUserSubscribed(String token) {
-    // TODO: implement onUserSubscribed
-    print(token);
+  void onNotificationClicked(LinkedHashMap<dynamic, dynamic> data) {
+    print("notification clicked: $data");
   }
 
-
+  @override
+  void onNotificationReceived(LinkedHashMap<dynamic, dynamic> data) {
+    print("notification received: $data");
+  }
 }
