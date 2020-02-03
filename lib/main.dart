@@ -25,13 +25,22 @@ class MyApp extends StatefulWidget {
   _MyAppState createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
   Najva najva;
+
+  Animation<double> animation;
+  AnimationController controller;
 
   @override
   void initState() {
     super.initState();
     najva = new Najva();
+    controller =
+        AnimationController(duration: const Duration(seconds: 1), vsync: this);
+    animation = CurvedAnimation(parent: controller, curve: Curves.easeIn);
+    animation.addListener(() {
+      setState(() {});
+    });
   }
 
   void onButtonClicked(int x, int y) {
@@ -50,12 +59,14 @@ class _MyAppState extends State<MyApp> {
 
       if (!gameDone) {
         player = !player;
-        if(count>=9){
-          gameDone= true;
+        if (count >= 9) {
+          gameDone = true;
           message = "Game has been a draw";
+          controller.forward();
         }
       } else {
         message = "Player ${getPlayerNumber()} won the game";
+        controller.forward();
       }
     });
   }
@@ -69,25 +80,20 @@ class _MyAppState extends State<MyApp> {
   }
 
   void checkGame(int x, int y) {
-    print("x=$x y=$y");
     if (map[x][0] == map[x][1] && map[x][0] == map[x][2]) {
-      print("x matched");
       gameDone = true;
     }
     if (map[0][y] == map[1][y] && map[0][y] == map[2][y]) {
-      print("y matched");
       gameDone = true;
     }
     if (map[0][0] != Colors.amber &&
         map[0][0] == map[1][1] &&
         map[0][0] == map[2][2]) {
-      print("cross 1");
       gameDone = true;
     }
     if (map[1][1] != Colors.amber &&
         map[2][0] == map[1][1] &&
         map[1][1] == map[0][2]) {
-      print("cross 2");
       gameDone = true;
     }
   }
@@ -110,7 +116,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Plugin example app'),
+          title: const Text('Tic Toc Toe'),
         ),
         body: Center(child: getContent()),
       ),
@@ -119,15 +125,17 @@ class _MyAppState extends State<MyApp> {
 
   Widget getContent() {
     if (gameDone) {
-      return Column(
-        children: <Widget>[
-          Text(message),
-          RaisedButton(
-            child: Text("reset"),
-            onPressed: resetGame,
-          )
-        ],
-      );
+      return Transform.translate(
+          child: Column(
+            children: <Widget>[
+              Text(message),
+              RaisedButton(
+                child: Text("reset"),
+                onPressed: resetGame,
+              )
+            ],
+          ),
+          offset: Offset(0, animation.value));
     } else {
       return Row(
         mainAxisSize: MainAxisSize.max,
@@ -232,5 +240,11 @@ class _MyAppState extends State<MyApp> {
         ],
       );
     }
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 }
