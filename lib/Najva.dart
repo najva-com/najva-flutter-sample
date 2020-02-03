@@ -7,12 +7,11 @@ class Najva extends NajvaFlutter {
 
   /// constructor for Najva
   Najva() {
-    init(campaignId, websiteId, apiKey);
+    disableLocation();
 
-    // you can call initUserHandling() method if you want to get warned about users
-    initUserHandling();
+    init();
 
-    getSubscribedToken().then((token) => {  print("user token: ${token}") });
+    getSubscribedToken().then((token) => {  print("user token: $token") });
 
   }
 

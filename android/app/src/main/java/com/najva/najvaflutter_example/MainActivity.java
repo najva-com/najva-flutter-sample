@@ -15,6 +15,5 @@ public class MainActivity extends FlutterActivity {
   @java.lang.Override
   protected void onDestroy() {
     super.onDestroy();
-    NajvaflutterPlugin.getInstance().release();
   }
 }
