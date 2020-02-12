@@ -133,107 +133,152 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
           ),
           offset: Offset(0, animation.value));
     } else {
-      return Row(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Flexible(
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              children: <Widget>[
-                Flexible(
-                    child: RaisedButton(
-                      color: map[0][0],
-                      onPressed: () {
-                        onButtonClicked(0, 0);
-                      },
-                    ),
-                    flex: 2),
-                Flexible(
-                    child: RaisedButton(
-                      color: map[1][0],
-                      onPressed: () {
-                        onButtonClicked(1, 0);
-                      },
-                    ),
-                    flex: 1),
-                Flexible(
-                    child: RaisedButton(
-                      color: map[2][0],
-                      onPressed: () {
-                        onButtonClicked(2, 0);
-                      },
-                    ),
-                    flex: 1),
-              ],
-            ),
-            flex: 1,
+      return Card(
+        color: Colors.teal,
+        child: Padding(
+          padding: EdgeInsets.all(16),
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Flexible(
+                child: Container(
+                  height: 300,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Flexible(
+                          child: ButtonTheme(
+                            height: 80,
+                            child: RaisedButton(
+                              color: map[0][0],
+                              onPressed: () {
+                                onButtonClicked(0, 0);
+                              },
+                            ),
+                          ),
+                          flex: 2),
+                      Flexible(
+                          child: ButtonTheme(
+                            height: 80,
+                            child: RaisedButton(
+                              color: map[1][0],
+                              onPressed: () {
+                                onButtonClicked(1, 0);
+                              },
+                            ),
+                          ),
+                          flex: 1),
+                      Flexible(
+                          child: ButtonTheme(
+                            height: 80,
+                            child: RaisedButton(
+                              color: map[2][0],
+                              onPressed: () {
+                                onButtonClicked(2, 0);
+                              },
+                            ),
+                          ),
+                          flex: 1),
+                    ],
+                  ),
+                ),
+                flex: 1,
+              ),
+              Flexible(
+                child: Container(
+                  height: 300,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Flexible(
+                          child: ButtonTheme(
+                            height: 80,
+                            child: RaisedButton(
+                              color: map[0][1],
+                              onPressed: () {
+                                onButtonClicked(0, 1);
+                              },
+                            ),
+                          ),
+                          flex: 1),
+                      Flexible(
+                          child: ButtonTheme(
+                            height: 80.0,
+                            child: RaisedButton(
+                              color: map[1][1],
+                              onPressed: () {
+                                onButtonClicked(1, 1);
+                              },
+                            ),
+                          ),
+                          flex: 1),
+                      Flexible(
+                          child: ButtonTheme(
+                            height: 80,
+                            child: RaisedButton(
+                              color: map[2][1],
+                              onPressed: () {
+                                onButtonClicked(2, 1);
+                              },
+                            ),
+                          ),
+                          flex: 1),
+                    ],
+                  ),
+                ),
+                flex: 1,
+              ),
+              Flexible(
+                child: Container(
+                  height: 300,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Flexible(
+                          child: ButtonTheme(
+                            height: 80,
+                            child: RaisedButton(
+                              color: map[0][2],
+                              onPressed: () {
+                                onButtonClicked(0, 2);
+                              },
+                            ),
+                          ),
+                          flex: 1),
+                      Flexible(
+                          child: ButtonTheme(
+                            height: 80.0,
+                            child: RaisedButton(
+                              color: map[1][2],
+                              onPressed: () {
+                                onButtonClicked(1, 2);
+                              },
+                            ),
+                          ),
+                          flex: 1),
+                      Flexible(
+                          child: ButtonTheme(
+                            height: 80.0,
+                            child: RaisedButton(
+                              color: map[2][2],
+                              onPressed: () {
+                                onButtonClicked(2, 2);
+                              },
+                            ),
+                          ),
+                          flex: 1),
+                    ],
+                  ),
+                ),
+                flex: 1,
+              )
+            ],
           ),
-          Flexible(
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              children: <Widget>[
-                Flexible(
-                    child: RaisedButton(
-                      color: map[0][1],
-                      onPressed: () {
-                        onButtonClicked(0, 1);
-                      },
-                    ),
-                    flex: 1),
-                Flexible(
-                    child: RaisedButton(
-                      color: map[1][1],
-                      onPressed: () {
-                        onButtonClicked(1, 1);
-                      },
-                    ),
-                    flex: 1),
-                Flexible(
-                    child: RaisedButton(
-                      color: map[2][1],
-                      onPressed: () {
-                        onButtonClicked(2, 1);
-                      },
-                    ),
-                    flex: 1),
-              ],
-            ),
-            flex: 1,
-          ),
-          Flexible(
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              children: <Widget>[
-                Flexible(
-                    child: RaisedButton(
-                      color: map[0][2],
-                      onPressed: () {
-                        onButtonClicked(0, 2);
-                      },
-                    ),
-                    flex: 1),
-                Flexible(
-                    child: RaisedButton(
-                      color: map[1][2],
-                      onPressed: () {
-                        onButtonClicked(1, 2);
-                      },
-                    ),
-                    flex: 1),
-                Flexible(
-                    child: RaisedButton(
-                      color: map[2][2],
-                      onPressed: () {
-                        onButtonClicked(2, 2);
-                      },
-                    ),
-                    flex: 1),
-              ],
-            ),
-            flex: 1,
-          )
-        ],
+        ),
       );
     }
   }
