@@ -1,27 +1,22 @@
 import 'dart:io';
+import 'dart:collection';
+import 'dart:math';
 
 import 'package:najvaflutter/najvaflutter.dart';
 import 'package:http/http.dart';
 import 'package:najvaflutter_example/main.dart';
 
 class Najva extends NajvaFlutter {
-  int campaignId = 0; // your campaignId here
-  int websiteId = 0; // your websiteId here
-  String apiKey = ""; //your api key here
 
   /// constructor for Najva
   Najva() {
-    disableLocation();
+    enableLocation();
+
+    setFirebaseEnabled(false);// set to true if you want to najva use your firebase account
 
     init();
 
     getSubscribedToken().then((token) => {print("user token: $token")});
-  }
-
-  /// json data will be send to this method
-  @override
-  void _onNewJSONDataReceived(String jsonData) {
-    print(jsonData);
   }
 
   void _sendTokenToServer(String token) async {
@@ -37,8 +32,20 @@ class Najva extends NajvaFlutter {
   }
 
   @override
-  void _onUserSubscribed(String token) {
+  void onUserSubscribed(String token) {
     _sendTokenToServer(token);
     print(token);
+  }
+
+  @override
+  void onNotificationClicked(LinkedHashMap<dynamic,dynamic> data) {
+    var id = data['notification_id'];
+    log(id);
+  }
+
+  @override
+  void onNotificationReceived(LinkedHashMap<dynamic,dynamic> data) {
+    var id = data['notification_id'];
+    log(id);
   }
 }
