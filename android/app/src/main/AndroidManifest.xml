@@ -14,13 +14,6 @@
         android:icon="@mipmap/ic_launcher"
         tools:ignore="GoogleAppIndexingWarning">
 
-        <meta-data
-            android:name="com.najva.sdk.metadata.API_KEY"
-            android:value="aa76de62-47ef-48d0-a109-7e9714eff96f" />
-        <meta-data
-            android:name="com.najva.sdk.metadata.WEBSITE_ID"
-            android:value="15184" />
-
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
